@@ -89,6 +89,56 @@ def category_spend():
     print("-" * 30)
     
 
+def edit_exp():
+    if not expense:
+        print("No expenses to edit.")
+        return
+
+    view_exp()
+
+    while True:
+        try:
+            edit_id = int(input("Enter the ID to edit ✏️ : "))
+            break
+        except ValueError:
+            print("Invalid input! Please enter a number.")
+
+    index = edit_id - 1
+
+    if not (0 <= index < len(expense)):
+        print("ID not found.")
+        return
+
+    item = expense[index]
+    print(f"\nEditing: {item['category']} | {item['amount']} | {item['note']}")
+    print("(Press Enter to keep the current value)\n")
+
+    new_category = input(f"Category [{item['category']}]: ").strip()
+    if new_category:
+        item['category'] = new_category.title()
+
+    while True:
+        new_amount = input(f"Amount [{item['amount']}]: ").strip()
+        if new_amount == "":
+            break
+        try:
+            new_amount = float(new_amount)
+            if new_amount <= 0:
+                print("Amount must be greater than 0.")
+                continue
+            item['amount'] = new_amount
+            break
+        except ValueError:
+            print("Invalid input! Please enter a numeric value.")
+
+    new_note = input(f"Note [{item['note']}]: ").strip()
+    if new_note:
+        item['note'] = new_note
+
+    print(f"✅ Updated: {item['category']} | {item['amount']} | {item['note']}")
+    save_data()
+
+
 def del_exp():
     if not expense:
         print("No expenses to delete.")
@@ -119,7 +169,8 @@ while True:
     print("3. 💰 Total Spending")
     print("4. 📊 Category Spending")
     print("5. ❌ Delete Expense")
-    print("6. 🚪 Exit")
+    print("6. ✏️ Edit Entry")
+    print("7. 🚪 Exit")
     print("===================================")
 
     while True:
@@ -141,6 +192,8 @@ while True:
     elif choice==5:
         del_exp()
     elif choice==6:
+        edit_exp()
+    elif choice==7:
         print("Exiting...")
         break
     else:
