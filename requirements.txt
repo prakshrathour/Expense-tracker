@@ -1,0 +1,16 @@
+1. Add Expense
+    User can enter:
+        amount
+        category (food, travel, etc.)
+        optional note
+2. View All Expenses
+    Show all stored expenses
+    Should be readable (not raw structure)
+3. Total Spending
+    Show total amount spent
+4. Category-wise Spending
+    Example:
+    Food → 500
+    Travel → 300
+5. Delete Expense
+    User can remove an entry
